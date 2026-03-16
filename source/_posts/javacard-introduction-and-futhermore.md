@@ -6,7 +6,7 @@ categories:
 date: 2026-03-16 20:23:43
 ---
 
-Simply Saying, JavaCard is a kind of SmartCard with JavaCard VM, which can run any JavaCard applet.The opening of Java Card specification makes JavaCard really easy to program instead of old-style Proprietary CPU Card that requires signing up for NDK.In that case, due to the cost of sharing their confidential documents, technical support and production, most of the Manufacturers will not even make a contract with you a little company!So that the JavaCard is the only way we can customize and program SmartCard as safe as CC EAL6+ at low cost.
+Simply Saying, JavaCard is a kind of SmartCard with JavaCard VM, which can run any JavaCard applet.The opening of Java Card specification makes JavaCard really easy to program instead of old-style Proprietary CPU Card that requires signing up for NDK. In that case, due to the cost of sharing their confidential documents, technical support and production, most of the Manufacturers will not even make a contract with you a little company!So that the JavaCard is the only way we can customize and program SmartCard as safe as CC EAL6+ at low cost.
 
 <!-- more -->
 
@@ -182,6 +182,8 @@ Here are some suggested applets:
 - NDEF: // https://github.com/non-bin/coolNDEFthing
 
 ### What's more
+On a JavaCard, all ``static`` objects and objects created with ``new`` reside in the NVM, while only stack frames reside in SRAM. Furthermore, for a JavaCard Applet, execution begins at the start of an APDU and ends upon its return. Therefore, a poorly constructed program can eventually exhaust all NVM and completely halt the card's responsiveness! Reinserting the card will not resolve the issue; the only solution is to uninstall and reinstall the program.
+
 For most NXP JCOP cards, they are some utility APDUs. 
 
 Get Free Memory

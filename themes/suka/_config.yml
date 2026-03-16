@@ -57,7 +57,7 @@ footer:
   # Specify the date when the site was setup.
   # For example, if you set it as 2015, then footer will show something like '© 2015 - 2018'
   # If you just want to show something like '© 2018' only, simly leave it blank.
-  copyright_since:
+  copyright_since: 2022
   # Footer Text
   # You can specify the text you want to show in footer, HTML tag is supported.
   # For example, you can setup ICP license number as:
@@ -141,7 +141,7 @@ post:
   #       license: 'This blog is under a <a href="/creativecommons.html" target="_blank">CC BY-NC-SA 3.0 Unported License</a>'
   # You can also use Front-Matter `license` to override this setting
   # or use Front-Matter `hide_license: true` to hide license on spefic post
-  license:
+  license: 'This blog is under a CC BY-NC-SA 4.0 International License</a>'
 
 # Table Of Contents which will be show on right side of the post
 toc:
@@ -232,7 +232,7 @@ analytics:
 # Busuanzi
 # The counter by https://busuanzi.ibruce.info
 busuanzi:
-  enable: true
+  enable: false
   # Site views analytics support either pv or uv
   # will be show at footer
   site_uv:
