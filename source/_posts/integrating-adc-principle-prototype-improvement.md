@@ -2,6 +2,7 @@
 title: Integrating ADC - Principle, Prototype, and Improvement
 categories:
   - Test&Measure
+mathjax: true 
 date: 2025-05-07 16:33:31
 ---
 
@@ -23,7 +24,10 @@ To convert voltage to time, we need to construct a voltage function related to t
 
 Basic form of an integrator [TI.com](https://www.ti.com.cn/cn/lit/an/zhca760b/zhca760b.pdf)
 
-The transfer function of an ideal integrator is: $$V\_{out} = -\\frac{1}{R\_1C\_1}\\int^{T\_1}\_{T\_0}{V\_{in}(t)}dt$$ For DC excitation, we have: $$V\_{out} = -\\frac{V\_{in}}{R\_1C\_1}(T\_1-T\_0)$$
+The transfer function of an ideal integrator is: 
+$$
+V\_{out} = -\\frac{1}{R\_1C\_1}\\int^{T\_1}\_{T\_0}{V\_{in}(t)}dt$$ For DC excitation, we have: $$V\_{out} = -\\frac{V\_{in}}{R\_1C\_1}(T\_1-T\_0)
+$$
 
 If we set a voltage $V\_{th}$, when When $V_th = V_out$, we have: $$V_in = -V_th\\frac{R_1C_1}{T_1-T_0}$$ And knowing all the parameters on the right-hand side of the equation, we can solve for the value of $V_in$. This is the **single-slope** integrator ADC. The **single-slope** integrator ADC uses a comparator to output a step signal and stop the counter when $V_th = V_out$, thereby calculating the input value. (Another zero-crossing comparator may be needed to start the counter; this is simplified to zero-state start-up.)
 
@@ -86,7 +90,7 @@ Based on this, the prototype of the HP Integrating ADC II was completed. The 345
 
 ![](https://alancui.cc/wp-content/uploads/2025/05/photo_2025-02-11_10-14-09.jpg)
 
-[AlanMultiSlopeADCv1](https://alancui.cc/?attachment_id=204)[下载](https://alancui.cc/wp-content/uploads/2025/05/AlanMultiSlopeADCv1.pdf)
+[AlanMultiSlopeADCv1](https://alancui.cc/?attachment_id=204)
 
 The Alan multi-slope ADCv1 is largely modeled after the HP34401A, controlled by an STM32 hardware timer, and uses an ADR4550 and LT5400 resistor network to generate a ±10V reference. The integrator uses an LT5400 resistor network as the input and a 74HC4053 as the switch. When the 4053 switch is not connected, current is diverted to GND to prevent the voltage across the switch from exceeding its withstand voltage. When connected, due to the op-amp's closed-loop design, the inverting input is also connected to GND. The power supply section uses a combination of Mornsun positive and negative isolation modules, multiple filters, and a TPS7A39.
 

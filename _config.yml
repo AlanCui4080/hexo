@@ -111,3 +111,7 @@ suka_theme:
     enable: false
     line_number: true
     theme: default
+
+mathjax:
+  tags: ams
+  single_dollars: true
