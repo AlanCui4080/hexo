@@ -41,14 +41,14 @@ GPSD_SOCKET="/var/run/gpsd.sock"
 ```
 
 
-Write the chrony configuration file ``/etc/chrony/sources.d/gps.sources``, which can be referenced from [https://chrony-project.org/doc/3.4/chrony.conf.html](https://chrony-project.org/doc/3.4/chrony.conf.html). delay is used to ensure that the server selects PPS as a reference source, poll 1 represents polling the clock source every two seconds, offset is used to compensate for the overall time difference between PPS and RS-232 output, but it's not significant under PPS驯服. width 0.1 explicitly declares the pulse width of the PPS signal, which is said to reduce jitter.
+Write the chrony configuration file ``/etc/chrony/sources.d/gps.sources``, which can be referenced from [https://chrony-project.org/doc/3.4/chrony.conf.html](https://chrony-project.org/doc/3.4/chrony.conf.html). delay is used to ensure that the server selects PPS as a reference source, poll 1 represents polling the clock source every two seconds, offset is used to compensate for the overall time difference between PPS and RS-232 output, but it's not significant under discipline by PPS. width 0.1 explicitly declares the pulse width of the PPS signal, which is said to reduce jitter.
 ```
 refclock SHM 0 refid GPS offset 0.1642 delay 0.2 poll 1
 refclock PPS /dev/pps1 refid PPS offset 0.0 poll 1 filter 1024 width 0.1 lock GPS
 ```
 
 
-If using an external NTP server as the source of date and time, you can add the following list to /etc/chrony/sources.d/external-server.sources. minpoll 10 ensures that the polling interval is at least 1024 seconds; by default it's 6, which may be too frequent.
+If using an external NTP server as the source of date and time, you can add the following list to ``/etc/chrony/sources.d/external-server.sources``. minpoll 10 ensures that the polling interval is at least 1024 seconds; by default it's 6, which may be too frequent.
 ```
 server ntp.ntsc.ac.cn iburst minpoll 10
 server ntp.tencent.com iburst minpoll 10
