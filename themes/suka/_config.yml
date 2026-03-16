@@ -72,7 +72,7 @@ footer:
 # ---------------------------------------------------------------
 uiux:
   # Muilt line slogan is supported.
-  slogan: Hi, nice to meet you.
+  slogan: Neo Site, New Content
   # For most link color except post color
   link_color:
   primary_color:
@@ -95,13 +95,15 @@ nav:
   rss:
     use: false
   share:
-    use: true
+    use: false
   search:
-    use: true
+    use: false
     link: /search
   pages:
-    #About:
-      #link: /about/
+    About:
+      link: /about/
+    Cryptography:
+      link: /cryptography/
     #Friends:
       #link: /links/
 
@@ -144,7 +146,7 @@ post:
 # Table Of Contents which will be show on right side of the post
 toc:
   # You can still disable toc for each single post by setting their front-matter with 'toc: false'
-  enable: true
+  enable: false
   # Show line number for each toc list-item or not. Default is true.
   line_number: true
 
@@ -345,7 +347,7 @@ hanabi:
 #     tab_replace: false
 #
 prettify:
-  enable: false
+  enable: true
   linenumber: true # We prefer to enable for avoiding some pretiffy's bugs.
   # Prettify Theme
   theme: github-v2 # It will not load any theme if you leave it blank
