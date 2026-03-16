@@ -1,0 +1,11 @@
+--- .gitignore
++++ .gitignore
+@@ -2,8 +2,6 @@
+ 
+ *.log
+ 
+-_config.yml
+-
+ node_modules
+ 
+ .idea
