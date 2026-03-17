@@ -16,7 +16,7 @@ The input is filtered by a low-pass filter. The main amplifier uses an OPA690 (G
 
 After amplification, signals exceeding 0dBm are amplified to rail-to-rail voltage (9Vpp), attenuated to 4.5Vpp by R70-R71, and finally 2.25Vpp on a properly terminated distributing bus. The output stage amplifier (G=2) then amplifies the signal to 4.5Vpp@HiZ or 2.25Vpp@50Ω (approximately 11dBm). This value can be corrected to approximately 10dBm by adjusting R71 or reduced to 4dBm by shorting the option jumper at output amplifier.
 
-[DistrubutionAmplifierv1Schematic](https://alancui.cc/wp-content/uploads/2025/10/DistrubutionAmplifierv1Schematic.pdf)
+[DistrubutionAmplifierv1Schematic](https://asset.alancui.cc/legacy-uploads/2025/10/DistrubutionAmplifierv1Schematic.pdf)
 
 ### Testing
 
@@ -29,22 +29,22 @@ Actual measurements confirm that the filter attenuates to -65.04dB at the second
 
 However, as shown in the figure, the switching frequency of the SEPIC-Cuk converter in DCM mode mixes with the output frequency, resulting in a cluttered output spectrum. However, none of the components exceed -40dBc and are approximately 500kHz from the center frequency, sufficient for selection using a bandpass filter. But a more critical issue is the output stage buffer OPA365's slew rate of only 25 V/µs (measured at 28.9V/µs), requiring 125.66V/µs to output 2Vpp at 10MHz. While the output filter is robust enough to reconstruct the waveform, the amplifier is still insufficient for the output stage, resulting in an excessively low output amplitude. In addition, the input stage is DC-coupled. Due to the high performance of the input amplifier, the input stage is unlikely to be fully loaded and cause problems, but this will reduce the robustness of the overall system.
 
-![](https://alancui.cc/wp-content/uploads/2025/10/distrubutionamplifierv1_interchannel_delay.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/distrubutionamplifierv1_interchannel_delay.png)
 
-![](https://alancui.cc/wp-content/uploads/2025/10/distrubutionamplifierv1_output_delay.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/distrubutionamplifierv1_output_delay.png)
 
-![](https://alancui.cc/wp-content/uploads/2025/10/distrubutionamplifierv1_spectrum.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/distrubutionamplifierv1_spectrum.png)
 
-![](https://alancui.cc/wp-content/uploads/2025/10/distrubutionamplifierv1_harmonic.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/distrubutionamplifierv1_harmonic.png)
 
-![](https://alancui.cc/wp-content/uploads/2025/10/distrubutionamplifierv1_power_nise.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/distrubutionamplifierv1_power_nise.png)
 
-![](https://alancui.cc/wp-content/uploads/2025/10/distrbutionamplifier_filiter_vna.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/distrbutionamplifier_filiter_vna.jpg)
 
 ### Fix up
 
 Replacing the OPA690 with the TPH2501 alleviated the slew rate issue and reduced output jitter, resulting in a standard output level of 1Vrms. Additionally, the TPH2501 appears to have overvoltage protection, automatically protecting itself at ±5V, causing the input current to drop to 100mA. Modifying the voltage to ±3.7V resolved this, restoring the input current to approximately 170mA.
 
-![](https://alancui.cc/wp-content/uploads/2025/10/cattus_distribution_amplifier_v1.1_waveform.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/cattus_distribution_amplifier_v1.1_waveform.png)
 
-![](https://alancui.cc/wp-content/uploads/2025/10/cattus_distribution_amplifier_v1.1_specturm.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/10/cattus_distribution_amplifier_v1.1_specturm.png)

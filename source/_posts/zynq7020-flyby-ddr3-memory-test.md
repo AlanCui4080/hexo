@@ -11,8 +11,8 @@ Two and a half years ago, I drew my first flyby ddr3 memory layout when I first 
 
 <!-- more -->
 
-![](https://alancui.cc/wp-content/uploads/2025/09/zynq_flyby_zynqpi_memtest_result.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/09/zynq_flyby_zynqpi_memtest_result.jpg)
 
-![](https://alancui.cc/wp-content/uploads/2025/09/zynq_flyby_zynqpi_memtest_readeye.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/09/zynq_flyby_zynqpi_memtest_readeye.jpg)
 
-![](https://alancui.cc/wp-content/uploads/2025/09/zynq_flyby_zynqpi_memtest_writeeye.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/09/zynq_flyby_zynqpi_memtest_writeeye.jpg)

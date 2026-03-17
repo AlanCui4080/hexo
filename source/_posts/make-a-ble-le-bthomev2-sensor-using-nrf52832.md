@@ -13,7 +13,7 @@ The schematic is quite simple — just an nRF52832 and an SHT4x sensor, powered 
 
 <!-- more -->
 
-[AlannRF52832BTHomeSensor.pdf](https://alancui.cc/wp-content/uploads/2026/03/AlannRF52832BTHomeSensor.pdf)
+[AlannRF52832BTHomeSensor.pdf](https://asset.alancui.cc/legacy-uploads/2026/03/AlannRF52832BTHomeSensor.pdf)
 
 Since Zephyr already includes the driver for SHT40 and all necessary low-power handling, only a bit of glue code is needed to get it working. It's important to note that enabling the debug port in any situation will significantly increase the background current, so the CONSOLE configuration should be completely removed in the final build. Similarly, saadc cannot sleep correctly in idle threads because it uses the nrfx library, so it must be deinitialized after each read. For Zephyr, you can't run tasks for too long in a ktimer (in fact, it might not even be enough to execute any library functions!), which could lead to race conditions. In production applications, if UICR_CUSTOM[15:0] is not all 0xFF, the system will use UICR rather than the predefined key. The full project can be found at  [https://github.com/AlanCui4080/nRF52832SHT40Sensor](https://github.com/AlanCui4080/nRF52832SHT40Sensor).
 
@@ -358,6 +358,6 @@ In testing, three finished units showed quite consistent performance, with an av
 
 After enabling BT_LE_ADV_OPT_REQUIRE_S8_CODING, the signal-to-noise ratio improved by approximately 7 dB, allowing a single Bluetooth terminal equipped with an 8 dB gain rod antenna to collect signals from all sensors in the house.
 
-![](https://alancui.cc/wp-content/uploads/2026/03/photo_2026-01-29_22-00-16.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2026/03/photo_2026-01-29_22-00-16.jpg)
 
-![](https://alancui.cc/wp-content/uploads/2026/03/屏幕截图-2026-01-22-221518.png)
+![](https://asset.alancui.cc/legacy-uploads/2026/03/屏幕截图-2026-01-22-221518.png)

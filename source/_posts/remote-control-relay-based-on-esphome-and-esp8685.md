@@ -11,11 +11,11 @@ Driven by the lazy to turn off the lights when in bed, an attempt was made to up
 
 <!-- more -->
 
-[Schematic](https://alancui.cc/wp-content/uploads/2026/03/b7ce3d0a-f06b-45f7-965c-541617357c09.pdf)
+[Schematic](https://asset.alancui.cc/legacy-uploads/2026/03/b7ce3d0a-f06b-45f7-965c-541617357c09.pdf)
 
 The final power consumption is 0.8W when off and 1.9W when on. It is worth noting that, to ensure interoperability with traditional switches, the relays are configured to be in the default on state. This results in the system activating the relays approximately 400ms after power-on, but still exhibits a significant delay. Furthermore, the overall capacitance is too large, and the power-off hold time is too long, causing the fast-switch to fail to reset and turn on the lights properly when the module is in a remote off state. Therefore, in future versions, it is necessary to reduce the output capacitance and also ensure that the relay control logic is in the on state by default to minimize power-on delay. (Bluetooth relay is also enabled in the configuration file because the installation location of the ceiling light is indeed suitable for collecting Bluetooth sensor messages.) The circuit meets EN55032 CLASS B and IEC/EN61000-4-2 Contact ±6KV / Air ±8KV ESD, IEC/EN61000-4-5 line to line ±2KV.
 
-![](https://alancui.cc/wp-content/uploads/2026/03/IMG20260303151711.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2026/03/IMG20260303151711.jpg)
 
 Here's the configuration yaml of ESPHome:
 ```yaml

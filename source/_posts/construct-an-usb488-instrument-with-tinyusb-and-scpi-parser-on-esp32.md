@@ -333,12 +333,12 @@ Finally, implement your SCPI subroutine according to the scpi-parser common\_c e
 
 At this point, the USB488 has been implemented. Open the device manager and you will see an IVI device (you need to install the VISA driver first, such as Keysight IO Suite and NI-VISA). Open NI-MAX and query \*IDN?. The result is as follows:
 
-![](https://alancui.cc/wp-content/uploads/2025/09/usb4882_on_esp32_hardware_manager.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/09/usb4882_on_esp32_hardware_manager.png)
 
-![](https://alancui.cc/wp-content/uploads/2025/09/usb4882_on_esp32_idn_query.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/09/usb4882_on_esp32_idn_query.png)
 
 The USB TMC specification for reference purpose：
 
-[USBTMC\_1\_006a](https://alancui.cc/wp-content/uploads/2025/09/USBTMC_1_006a.zip)[下载](https://alancui.cc/wp-content/uploads/2025/09/USBTMC_1_006a.zip)
+[USBTMC\_1\_006a](https://asset.alancui.cc/legacy-uploads/2025/09/USBTMC_1_006a.zip)[下载](https://asset.alancui.cc/legacy-uploads/2025/09/USBTMC_1_006a.zip)
 
 Alan. 2025/09/25

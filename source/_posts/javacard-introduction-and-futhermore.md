@@ -199,7 +199,7 @@ Get Card Details (JCOP3-)
 ```
 $ gp --apdu 00A4040009A000000167413000FF00
 ```
-![](/image/javacard-below-jcop3-identify.png)
+![](https://asset.alancui.cc/javacard-below-jcop3-identify.png)
 
 Get Card Details (JCOP4+)
 ```
@@ -208,7 +208,6 @@ $ gp --apdu 80CA00FE02DF2800
      [df28] ... // Can be parsed by [This document](https://cyber.gouv.fr/uploads/2017/09/anssi_cible2017_43en.pdf)
 
 ```
-![](/image/javacard-above-jcop4-identify.png)
+![](https://asset.alancui.cc/javacard-above-jcop4-identify.png)
 
-qwq
-![](/image/javacard-introduction-two-j3r180.png)
+![](https://asset.alancui.cc/javacard-introduction-two-j3r180.png)

@@ -14,13 +14,13 @@ Time and frequency are the earliest, most widely used, and most accurate physica
 
 In fact, the most accurate voltage references today are based on frequency/voltage conversion: passing microwaves through a weak point sandwiched between two superconductors (separated by an insulating/non-superconducting material), this produces an extremely stable and precise DC voltage due to the inverse Josephson effect.
 
-![](https://alancui.cc/wp-content/uploads/2025/05/NISTvoltChip.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/NISTvoltChip.jpg)
 
 The image shows a Josephson DC voltage reference chip manufactured by NIST, with 3020 nodes, used to generate a 1V voltage, requiring liquid helium cooling during operation.
 
 To convert voltage to time, we need to construct a voltage function related to time. In the basic circuits, it's clear that the response of the basic four arithmetic units does not include time, and the DC response of the filter is non-linear, leaving only the differentiator and integrator as options. Since we are actually only concerned with the DC signal, a capacitor integrator is chosen to construct the V/T conversion core of the ADC. A capacitor is chosen instead of an inductor because inductorance is difficult to control.
 
-![](https://alancui.cc/wp-content/uploads/2025/05/37e4a347-d86a-4551-99ee-3c7ee1b0148d.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/37e4a347-d86a-4551-99ee-3c7ee1b0148d.png)
 
 Basic form of an integrator [TI.com](https://www.ti.com.cn/cn/lit/an/zhca760b/zhca760b.pdf)
 
@@ -31,13 +31,13 @@ $$
 
 If we set a voltage $V\_{th}$, when When $V_th = V_out$, we have: $$V_in = -V_th\\frac{R_1C_1}{T_1-T_0}$$ And knowing all the parameters on the right-hand side of the equation, we can solve for the value of $V_in$. This is the **single-slope** integrator ADC. The **single-slope** integrator ADC uses a comparator to output a step signal and stop the counter when $V_th = V_out$, thereby calculating the input value. (Another zero-crossing comparator may be needed to start the counter; this is simplified to zero-state start-up.)
 
-![](https://alancui.cc/wp-content/uploads/2025/05/DI112Fig01.gif)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/DI112Fig01.gif)
 
 Single-slope integrator ADC architecture [Analog.com](https://www.analog.com/en/resources/technical-articles/adc-architectures.html)
 
 However, this architecture is highly dependent on the absolute values ​​of the two passive components $R_1$ and $C_1$. Manufacturing capacitors and resistors with ultra-high stability is very expensive, resulting in generally low accuracy. Therefore, an improved version was quickly developed: **dual-slope integrator ADC**. A set of switches is added to the original circuit to switch the input between $V_{in}$ and $V_{ref}$ of opposite polarity, and the voltage integration is brought to zero during the $V_{ref}$ on-time. We call the portion of $V_{in}$ that is connected to it the **RunUp**, and the portion of $V_{in}$ that is disconnected from it the **RunDown**.
 
-![](https://alancui.cc/wp-content/uploads/2025/05/DI112Fig02.gif)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/DI112Fig02.gif)
 
 Double-slope integral ADC，来源：[Analog.com](https://www.analog.com/en/resources/technical-articles/adc-architectures.html)
 
@@ -47,7 +47,7 @@ If $V\_{ref}$ is accurate and the entire analog system is ideal, the output reso
 
 This scales $T_1-T_0$ by a coefficient of $\\frac{R_{vref}}{R_{vin}}$, thereby improving resolution. With advancements in film resistor technology, multiple resistors can be fabricated on the same substrate. Due to highly standardized fabrication processes, the drift of these resistors will be highly consistent. Therefore, this improved method is feasible.
 
-Improved (Dual-Slope) Dual-Ramp Integrator ADC, Source: p.4, April 1989, HP Journal ![](https://alancui.cc/wp-content/uploads/2025/05/QQ20250507-200943.png)
+Improved (Dual-Slope) Dual-Ramp Integrator ADC, Source: p.4, April 1989, HP Journal ![](https://asset.alancui.cc/legacy-uploads/2025/05/QQ20250507-200943.png)
 
 
 However, dual-ramp integrators have significant drawbacks:
@@ -60,23 +60,23 @@ While we could fabricate resistors in multiple proportions and execute the two r
 
 Therefore, to address manufacturing challenges and achieve a more flexible operating range, we adopted a smaller integrator time constant to obtain a smaller passive component size. During RunUp, a switch is used to toggle between $+V\_{ref}$ 和 $-V\_{ref}$ to prevent the integral voltage from saturating, i.e., (note the residual voltage on the right-hand side of the equation): $$\\frac{V\_{in}t\_{in}}{t\_{total}}+\\frac{+V\_{ref}t\_{posref}}{t\_{total}}+\\frac{-V\_{ref}t\_{negref}}{t\_{total}}=V\_{residual}$$ At this stage, the instrument typically achieves approximately half its resolution.
 
-![](https://alancui.cc/wp-content/uploads/2025/05/QQ20250507-191321.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/QQ20250507-191321.png)
 
 HP3478A Dual-Slope Multi-Ramp RunUp Process [3478A DMM Service Manual](https://www.keysight.com/us/en/assets/9018-05355/service-manuals/9018-05355.pdf?success=true)
 
 Due to the charge injection effect and switching nonlinearity of MOSFETs, we must use a well-designed switching sequence during switching to ensure a constant and symmetrical number of MOSFET switching operations. Symmetrical switching within a switching mode helps eliminate charge injection and reduce offset, while a fixed number of switching operations within a switching mode will generate a fixed nonlinear offset, which can be calibrated later. This will generate a waveform approximating PWM, as shown below:
 
-Switch sequence, Source: p.7, April 1989, HP Journal ![](https://alancui.cc/wp-content/uploads/2025/05/QQ20250507-210741.png)
+Switch sequence, Source: p.7, April 1989, HP Journal ![](https://asset.alancui.cc/legacy-uploads/2025/05/QQ20250507-210741.png)
 
 After the majority of the RunUp time has ended, $V_{residual}$ can be measured during RunDown to obtain the remaining half of the resolution. In the ideal analog phase, $V_{residual}$ depends only on quantization error, comparator delay error, and switching delay error, with the latter two being the majority. Since the time of these errors is relatively fixed, we only need to reduce the slope of RunDown during the zero-crossing phase to reduce the $V_{residual}$ injected by these errors. Similarly, the RunDown process cannot increase resolution by extending the integration time because the $V_{residual}$ caused by these errors is fixed given a constant slope. Regardless, a fixed resolution will always be generated during RunDown; adjustments for different resolutions and integration times are provided by RunUp.
 
-![](https://alancui.cc/wp-content/uploads/2025/05/QQ20250507-192018.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/QQ20250507-192018.png)
 
 HP3478A multi-slope multi-ramp RunDown process [3478A DMM Service Manual](https://www.keysight.com/us/en/assets/9018-05355/service-manuals/9018-05355.pdf?success=true)
 
 Furthermore, since $V_{in}$ is now disconnected, we can create more slopes using fewer resistors and the superposition theorem. The HP3478A generates nine slopes using only three resistors.
 
-![](https://alancui.cc/wp-content/uploads/2025/05/QQ20250507-203828.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/QQ20250507-203828.png)
 
 Simplified ADC diagram of HP3478A [3478A DMM Service Manual](https://www.keysight.com/us/en/assets/9018-05355/service-manuals/9018-05355.pdf?success=true)
 
@@ -86,9 +86,9 @@ Based on this, the prototype of the HP Integrating ADC II was completed. The 345
 
 #### Multislope v1
 
-![](https://alancui.cc/wp-content/uploads/2025/05/qq_pic_merged_1746630083104.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/qq_pic_merged_1746630083104.jpg)
 
-![](https://alancui.cc/wp-content/uploads/2025/05/photo_2025-02-11_10-14-09.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/photo_2025-02-11_10-14-09.jpg)
 
 [AlanMultiSlopeADCv1](https://alancui.cc/?attachment_id=204)
 
@@ -98,9 +98,9 @@ This schematic has several issues. For example, the LM311's input stage slew rat
 
 #### Multislope v3
 
-![](https://alancui.cc/wp-content/uploads/2025/05/qq_pic_merged_1746632855644.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/qq_pic_merged_1746632855644.jpg)
 
-![](https://alancui.cc/wp-content/uploads/2025/05/photo_2025-04-21_17-46-33.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/photo_2025-04-21_17-46-33.jpg)
 
 [AlanMultiSlopeADCv3](https://alancui.cc/?attachment_id=209)
 
@@ -110,4 +110,4 @@ Using conventional bang-bang control, this board successfully achieved 4-bit res
 
 SourceCode: [https://github.com/AlanCui4080/MultiSlopeADCv3](https://github.com/AlanCui4080/MultiSlopeADCv3)
 
-![](https://alancui.cc/wp-content/uploads/2025/05/AF356CBB5E783FC4090605E4244AD511.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/AF356CBB5E783FC4090605E4244AD511.png)

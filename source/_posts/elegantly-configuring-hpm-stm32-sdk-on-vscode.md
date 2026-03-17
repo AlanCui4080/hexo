@@ -136,7 +136,7 @@ Add ``.vscode/launch.json`` to start the GDB server and attach to OpenOCD:
 ```
 
 It's all done to debug the program:
-![](https://alancui.cc/wp-content/uploads/2025/05/QQ20250514-172832.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/05/QQ20250514-172832.png)
 
 ## STM32
 - Intsall [https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension](https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension)。

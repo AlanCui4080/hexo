@@ -51,7 +51,7 @@ li      x10,0xfffff
 jal     x0,0
 ```
 
-![](https://alancui.cc/wp-content/uploads/2025/06/therm_v1_processor_helloworld.png)
+![](https://asset.alancui.cc/legacy-uploads/2025/06/therm_v1_processor_helloworld.png)
 
 
 #### Improvement R1

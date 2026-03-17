@@ -9,7 +9,7 @@ In today's world, cryptography has become the foundation of most digital infrast
 
 <!-- more -->
 
-![](https://alancui.cc/wp-content/uploads/2025/11/IMG_20251109_093408-1.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/11/IMG_20251109_093408-1.jpg)
 
 After connecting the generator to an oscilloscope, turn it on and acquire 100 million data points at a sampling rate of 500 MSa/s, saving them as a .mat file in MATLAB. The following script performs three main steps
 - Extracting pulse event time intervals
@@ -51,4 +51,4 @@ Results: In the 100Mpts dataset, we observed 794,624 avalanche events. The stati
 
 However, due to the fact that more than 1 million bits are required for accurate entropy estimation — which would involve collecting about 100 GiB of data via an oscilloscope — this approach is not practical for real-world applications. Therefore, it's necessary to consider designing a dedicated PCB board specifically for the collection and transmission of the entropy source.
 
-![](https://alancui.cc/wp-content/uploads/2025/11/photo_2025-11-28_04-12-11.jpg)
+![](https://asset.alancui.cc/legacy-uploads/2025/11/photo_2025-11-28_04-12-11.jpg)
