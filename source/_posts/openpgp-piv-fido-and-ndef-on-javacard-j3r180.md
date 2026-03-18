@@ -1,5 +1,5 @@
 ---
-title: OpenPGP, PIV, FIDO, NDEF and usage principles to ensure safety on NXP J3R180 JavaCard 
+title: OpenPGP, PIV, FIDO, NDEF on NXP J3R180 JavaCard and usage principles to ensure safety 
 tags: []
 categories:
   - Cryptography

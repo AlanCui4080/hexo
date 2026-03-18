@@ -13,7 +13,7 @@ Simply Saying, JavaCard is a kind of SmartCard with JavaCard VM, which can run a
 ### Get a JavaCard
 
 Actually, you can get JCOP4.5 P71 easily from AliExpress or Taobao, a typical J3R180 costs only about $3-$4 while the minimal order quantity is one. You can choose uninitlized (unprepersonalized), unfused or fused card(prepersonalized), even more, you can choose a already secured card(personalized).
-Furthermore, a PC/SC compatiable card reader is necessary, it may be better to have USB CCID interface, a SCR3210 is good enough with costing only $4-$5. It is not recommended to use contactless card readers for card initialization and program downloading due to insufficient power supply while programming EEPROM and Flash memory can damage the card. Also, since most th cards use the SCP02 protocol and 3DES keys, contactless card readers may pose potential security risks by may be listening by others. And because almost all bank cards and SIM cards are javacards, security requirements make these cards **highly susceptible to self-locking (bricking) due to improper operation**, therefore, please think carefully before entering any commands.
+Furthermore, a PC/SC compatiable card reader is necessary, it may be better to have USB CCID interface, a SCR3310 is good enough with costing only $4-$5. It is not recommended to use contactless card readers for card initialization and program downloading due to insufficient power supply while programming EEPROM and Flash memory can damage the card. Also, since most th cards use the SCP02 protocol and 3DES keys, contactless card readers may pose potential security risks by may be listening by others. And because almost all bank cards and SIM cards are javacards, security requirements make these cards **highly susceptible to self-locking (bricking) due to improper operation**, therefore, please think carefully before entering any commands.
 
 > Wait, What is prepersonalization, personalization or fusing?
 
@@ -21,12 +21,12 @@ Furthermore, a PC/SC compatiable card reader is necessary, it may be better to h
 
 #### Prepersonalization and Fusing
 
-Every card was unfused and uninitialized at factory, they will be programmed with a TransportKey (TK) by vendor, the TK protects the card from unauthorized access during logistics and transportation. When the card got by card issuer, the issuer unlocks the card with TK, then initialize the card with parameters such as ATR, SCP key to communicate with Issuer Security Domain (ISD) and so on. This process is called initialization or prepersonalized, in exact, it contains multiple Vendor-Specific APDUs, like following command sequence:
+Every card was unfused and uninitialized at factory, they will be programmed with a TransportKey (TK) by vendor, the TK protects the card from unauthorized access during logistics and transportation. When the card got by card reseller, the reseller unlocks the card with TK, then initialize the card with parameters such as ATR, SCP key to let card issuer communicate with Issuer Security Domain (ISD) and so on. This process is called initialization or prepersonalized, in exact, it contains multiple Vendor-Specific APDUs, and the TK is actually the AID of Root Applet, like following command sequence:
 
 Warning: **DON'T** TRY THIS ON YOUR CARD, CONTACT YOUR VENDOR OR DISTROBUTOR FOR INITLIZATION SEQUENCE, OR **IT MAY BRICK YOUR CARD**.
 ```
 APDU:
-00 A4 04 00 10 XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX (KEY <TK>)
+00 A4 04 00 10 XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX (SELECT <TK>)
 00 F0 00 00 (FACTORY RESET)
 C0 D6 01 23 01 DA (Set T=1 in cold state)
 C0 D6 01 46 01 DA (Set T=1 in warm state)
@@ -43,7 +43,7 @@ C0 D6 03 3D 10 XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX (Set key slot 3 <
 
 #### Personalization and GP Initlizate
 
-After fusing, the card starts to work and can really response APDUs. The ISD, as known as Card Manager, is available to us now. Therefore, if you got a card without prepersonalization and fusing, you must get TK from your vendor; a card prepersonalized but unfused allows you to change underlying configurations of card, then a fused card don't. After fused, the card's TK becomes useless, therefore, to a certain extent, the TK does not need to be kept secret. In such a fused state, we can communicate with Card Manager, in most cards, it's GlobalPlatform, there is a utility call [GlobalPlatformPro](https://github.com/martinpaljak/GlobalPlatformPro) to deal with it. such as:
+After fusing, the Root Applet stops from responses and the other applets starts to work and can really response APDUs. The ISD, as known as Card Manager, is available to us now. Therefore, if you got a card without prepersonalization and fusing, you must get TK from your vendor; a card prepersonalized but unfused allows you to change underlying configurations of card, then a fused card don't. After fused, the card's TK becomes useless, therefore, to a certain extent, the TK does not need to be kept secret. In such a fused state, we can communicate with Card Manager, in most cards, it's GlobalPlatform, there is a utility call [GlobalPlatformPro](https://github.com/martinpaljak/GlobalPlatformPro) to deal with it. such as:
 ```
 $ gp -i
 # GlobalPlatformPro v25.10.20
