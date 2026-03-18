@@ -15,7 +15,7 @@ Simply Saying, JavaCard is a kind of SmartCard with JavaCard VM, which can run a
 Actually, you can get JCOP4.5 P71 easily from AliExpress or Taobao, a typical J3R180 costs only about $3-$4 while the minimal order quantity is one. You can choose uninitlized (unprepersonalized), unfused or fused card(prepersonalized), even more, you can choose a already secured card(personalized).
 Furthermore, a PC/SC compatiable card reader is necessary, it may be better to have USB CCID interface, a SCR3210 is good enough with costing only $4-$5. It is not recommended to use contactless card readers for card initialization and program downloading due to insufficient power supply while programming EEPROM and Flash memory can damage the card. Also, since most th cards use the SCP02 protocol and 3DES keys, contactless card readers may pose potential security risks by may be listening by others. And because almost all bank cards and SIM cards are javacards, security requirements make these cards **highly susceptible to self-locking (bricking) due to improper operation**, therefore, please think carefully before entering any commands.
 
-> Wait, What is prepersonalization, prepersonalization or fusing?
+> Wait, What is prepersonalization, personalization or fusing?
 
 ### Configure JavaCard
 
@@ -173,13 +173,12 @@ And remove by:
 ```
 gp --uninstall <CAPFILE> <SCP KEY PARAM>
 ```
-But for SmartPGP, You'd better add ``--create d276000124010304A1A0[SERIAL IN 8 HEX CHARS]0000`` into the paramater list, so that it can have a unique serial number.
 
 Here are some suggested applets:
 - OpenPGP: https://github.com/github-af/SmartPGP 
 - PIV: https://github.com/arekinath/PivApplet
 - FIDO2: https://github.com/BryanJacobs/FIDO2Applet
-- NDEF: // https://github.com/non-bin/coolNDEFthing
+- NDEF: https://github.com/non-bin/coolNDEFthing
 
 ### What's more
 On a JavaCard, all ``static`` objects and objects created with ``new`` reside in the NVM, while only stack frames reside in SRAM. Furthermore, for a JavaCard Applet, execution begins at the start of an APDU and ends upon its return. Therefore, a poorly constructed program can eventually exhaust all NVM and completely halt the card's responsiveness! Reinserting the card will not resolve the issue; the only solution is to uninstall and reinstall the program.
