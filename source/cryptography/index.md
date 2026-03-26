@@ -41,6 +41,32 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDez9RSWfSMrz725VThz8CcPp1Ary6AUoiec4fH2ohZ
 curl -sSL https://key.alancui.cc/alanssh.asc >> ~/.ssh/authorized_keys
 ```
 
+## PKI
+**Alan Trust Root Authority**
+
+Issuance Policy: Any subject that is controlled by me, if you trust me, then trust this root.
+
+Certificate Policy: OCSP Not Provided, CRL Available
+
+```
+Issuer:
+    OU=Root Authority
+    O=Alan Trust
+    CN=Alan Trust Root CA
+  Name Hash(sha1): acbe1d6af9d96066cda8ce517a6140bfebb786dc
+  Name Hash(md5): 43442ade5e6cb860818ff4c1b24fb812
+Subject:
+    OU=Root Authority
+    O=Alan Trust
+    CN=Alan Trust Root CA
+  Name Hash(sha1): acbe1d6af9d96066cda8ce517a6140bfebb786dc
+  Name Hash(md5): 43442ade5e6cb860818ff4c1b24fb812
+Cert Serial Number: 1ea4ed7ac9289b4dc1eb8a2eaea2146760f0dde8
+```
+
+```bash
+curl -sSL https://pki.alancui.cc/root-ca.crt >> /usr/local/share/ca-certificates/root-ca-alantrust.crt
+```
 
 ## Android APK Signing 
 
