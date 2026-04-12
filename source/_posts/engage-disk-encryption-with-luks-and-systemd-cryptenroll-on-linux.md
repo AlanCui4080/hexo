@@ -72,13 +72,13 @@ PCR0  Firmware code,          CRTM (Core Root of Trust for Measurement, usually 
 PCR1  Firmware config,        Hardware, Boot Order and Boot Entry
 PCR2  OptionROM code,         GPU, Network adapter
 PCR3  OptionROM config,       Not used (on my platform)
-PCR4  BootManager code,       UKI kernel or systemd-boot or grub or Windows Bootloader
+PCR4  BootManager code,       UKI kernel or systemd-boot or grub or Windows Bootloader or shim
 PCR5  BootManager config,     GPT partition table, systemd-boot loader.conf
 PCR6  OEM event,              Not used (on my platform)
 PCR7  Secure Boot State,      PK,KEK,db,dbx,if enable or not
 
 === For Linux ===
-PCR8  grub,                   kernel commandline
+PCR8  grub,                   grub commandline, kernel commandline
 PCR9  grub,systemd            kernel and initrd, NvPCR anchor
 PCR10 kernel                  IMA (Integrity Measurement Architecture)
 PCR11 systemd                 UKI, boot phase
@@ -88,10 +88,13 @@ PCR14 shim                    MOK (Machine Owner Key)
 PCR15 cryptsetup              volume key (optional), machine id, mountpoint (optional), UUID of /root and /var
 
 === For Windows ===
-PCR8  NTFS                    NTFS Boot Sector 
-PCR9  NTFS                    NTFS Boot Block
-PCR10 BootMgr                 Windows Boot Manager
+PCR8  NTFS                    NTFS Boot Sector (Legacy)
+PCR9  NTFS                    NTFS Boot Block (Legacy)
+PCR10 BootMgr                 Windows Boot Manager (Legacy)
 PCR11 Bitlocker               Bitlocker Access Control  
+PCR13 -                       Data events and highly volatile events
+PCR14 -                       Boot Module Details
+PCR15 -                       Boot Authorities
 ... 
 
 === General ===
