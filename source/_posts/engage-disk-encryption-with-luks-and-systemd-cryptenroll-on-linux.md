@@ -59,10 +59,49 @@ For users of UKI, since the UKI is signed, PCR7 can indirectly measure the the U
 In summary, I have chosen `--tpm2-pcrs=0+2+7+15:sha256=0000` and protected the TPM with a PIN. Not use PCR9/11 is due to the following considerations: I use Arch Linux, which is a rolling distro that updates its kernel very quickly, and i will use UKI, so I will not bind to PCR9 , and PCR11 is not used also because I do not want to configure complex PCR policies (I use sbctl). This requires to use PCR15 to protect against malicious root volume attacks, and my Secure Boot keys are stored on the encrypted root volume, although if root privileges are compromised, all things becomes meaningless. But to prevent Bootkit persistence, at least, as a tamper,I bind to PCR0+2 to protect the firmware.
 
 ```bash
-systemd-cryptenroll /dev/sdx --tpm2-device=auto --tpm2-pcrs=0+2+7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000
+systemd-cryptenroll /dev/sdx --tpm2-device=auto --tpm2-with-pin=yes --tpm2-pcrs=0+2+7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000
 ```
 
 Despite following strict PCR measurements and enabling DMA protection, **you should protect the TPM with a PIN, and check the integrity of the hardware before entering the PIN**. This does not mean that the aforementioned PCRs are meaningless; they can warn you about changes to system components, rather than just let TPM acting as a password policy enforcement.
+
+### PCR policies
+
+If you do not trust Microsoft, but have to enroll their key to system due to OptionROM or dual boot with Windows, bind to a value that is not associated to kernel give Microsoft a change to attack you, but it's too complicate to update the LUKS with newer PCR value each time you update the kernel. PCR policy allow PCR to be various with a valid signature. Firstly, generate two keys, one for decrypt the disk in and only in initrd, another one for futher usage.
+
+```bash
+openssl genrsa -aes256 -out /etc/systemd/tpm2-pcr-private-key.pem 4096
+openssl rsa -in /etc/systemd/tpm2-pcr-private-key.pem -pubout -out /etc/systemd/tpm2-pcr-public-key.pem
+
+openssl genrsa -aes256 -out /etc/systemd/tpm2-pcr-private-key-initrd.pem 4096
+openssl rsa -in /etc/systemd/tpm2-pcr-private-key-initrd.pem -pubout -out /etc/systemd/tpm2-pcr-public-key-initrd.pem
+```
+
+Write /etc/kernel/uki.conf, install ukify also, let your mkinitcpio to use it. I will not sign the kernel here because the sbctl wil do this for me.
+
+```
+[UKI]
+#SecureBootSigningTool=systemd-sbsign
+#SignKernel=true
+#SecureBootPrivateKey=/etc/kernel/secure-boot-private-key.pem
+#SecureBootCertificate=/etc/kernel/secure-boot-certificate.pem
+Splash=/usr/share/systemd/bootctl/splash-arch.bmp
+
+[PCRSignature:all]
+PCRPrivateKey=/etc/systemd/tpm2-pcr-private-key.pem
+PCRPublicKey=/etc/systemd/tpm2-pcr-public-key.pem
+
+[PCRSignature:initrd]
+Phases=enter-initrd
+PCRPrivateKey=/etc/systemd/tpm2-pcr-private-key-initrd.pem
+PCRPublicKey=/etc/systemd/tpm2-pcr-public-key-initrd.pem
+```
+
+Then,
+```bash
+systemd-cryptenroll --wipe-slot tpm2 --tpm2-device auto --tpm2-with-pin=yes --tpm2-public-key /etc/systemd/tpm2-pcr-public-key-initrd.pem --tpm2-pcrs=0+2+7 /dev/nvme0n1p6
+```
+
+Now, your systemd is protected with static PCR 0+2+7 and dynamic PCR 11 policy, in here, there is no need for PCR15 anymore, because we are binding to a key will only sign enter-initrd, that will cause the TPM refuses to release key after exit-initrd. If you needs more security, replace the key path to pkcs11 url to storage the key on smartcard.
 
 #### PCRs table
 ```text
@@ -81,11 +120,11 @@ PCR7  Secure Boot State,      PK,KEK,db,dbx,if enable or not
 PCR8  grub,                   grub commandline, kernel commandline
 PCR9  grub,systemd            kernel and initrd, NvPCR anchor
 PCR10 kernel                  IMA (Integrity Measurement Architecture)
-PCR11 systemd                 UKI, boot phase
+PCR11 systemd                 UKI, every boot phase
 PCR12 systemd                 kernel command line, system credentials, initrd, ucode, devicetree
 PCR13 systemd                 initrd
 PCR14 shim                    MOK (Machine Owner Key)
-PCR15 cryptsetup              volume key (optional), machine id, mountpoint (optional), UUID of /root and /var
+PCR15 cryptsetup              volume key (optional), machine id, mountpoint (optional), UUID of /root and /varopenssl rsa -in /etc/systemd/tpm2-pcr-private-key-initrd.pem -out /etc/systemd/tpm2-pcr-private-key-initrd.pem -aes256
 
 === For Windows ===
 PCR8  NTFS                    NTFS Boot Sector (Legacy)
